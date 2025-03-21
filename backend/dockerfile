@@ -3,9 +3,11 @@ FROM ubuntu:20.04
 
 RUN apt-get update && apt-get install -y \
     git
-
+# check point, do not modify above this line or it will take a loooooong time to build
 RUN apt-get install -y \
     g++ \
+    sqlite3 \
+    libsqlite3-dev \
     && rm -rf /var/lib/apt/lists/*
 
 WORKDIR /app
@@ -13,6 +15,6 @@ WORKDIR /app
 COPY . .
 
 # test compile
-RUN g++ -o main main.cpp
+RUN g++ -o main main.cpp -lsqlite3
 
 CMD ["./main"]
