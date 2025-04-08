@@ -1,66 +1,61 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>My Example Website</title>
-  <style>
-    body {
-      font-family: Arial, sans-serif;
-      margin: 0;
-      padding: 0;
-      background-color: #f4f4f4;
-    }
-    header {
-      background-color: #333;
-      color: #fff;
-      padding: 20px;
-      text-align: center;
-    }
-    nav {
-      background-color: #444;
-      padding: 10px;
-      text-align: center;
-    }
-    nav a {
-      color: #fff;
-      margin: 0 10px;
-      text-decoration: none;
-      font-weight: bold;
-    }
-    main {
-      padding: 20px;
-    }
-    footer {
-      background-color: #333;
-      color: #fff;
-      text-align: center;
-      padding: 10px;
-      position: fixed;
-      bottom: 0;
-      width: 100%;
-    }
-  </style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Simple Chat Room</title>
+  <link rel="stylesheet" href="./css/styles.css" />
+  <script src="./js/chatContent.js" defer></script>
 </head>
 <body>
-  <header>
-    <h1>Welcome to My Website</h1>
-  </header>
-  
-  <nav>
-    <a href="#">Home</a>
-    <a href="#">About</a>
-    <a href="#">Services</a>
-    <a href="#">Contact</a>
-  </nav>
-  
-  <main>
-    <h2>About Us</h2>
-    <p>This is an example website built using HTML and CSS. It includes a header, navigation, main content area, and a fixed footer.</p>
-  </main>
-  
-  <footer>
-    <p>&copy; 2025 My Example Website</p>
-  </footer>
+  <div class="container">
+    <!-- Sidebar -->
+    <div class="sidebar">
+      <h2>Menu</h2>
+      <div class="switch-container">
+        <label class="switch">
+          <input type="checkbox" id="theme-toggle" />
+          <span class="slider"></span>
+        </label>
+        <span id="switch-label">Light Mode</span>
+      </div>
+      <!-- Additional sidebar items can be added here -->
+    </div>
+    <!-- Chat Room -->
+    <div class="chat-container">
+      <header class="chat-header">
+        <h1>Chat Room</h1>
+      </header>
+      <div class="chat-messages">
+        <!-- Chat messages will be injected here from chatContent.js -->
+      </div>
+      <form class="chat-form">
+        <input type="text" placeholder="Type a message" required />
+        <button type="submit">Send</button>
+      </form>
+    </div>
+  </div>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', function () {
+      const chatMessagesDiv = document.querySelector('.chat-messages');
+      if (window.getChatContent) {
+        chatMessagesDiv.innerHTML = window.getChatContent();
+      }
+    });
+
+    const toggle = document.getElementById('theme-toggle');
+    const switchLabel = document.getElementById('switch-label');
+
+    toggle.addEventListener('change', function() {
+      if (this.checked) {
+        document.body.classList.add('dark');
+        switchLabel.textContent = 'Dark Mode';
+      } else {
+        document.body.classList.remove('dark');
+        switchLabel.textContent = 'Light Mode';
+      }
+    });
+  </script>
 </body>
 </html>
